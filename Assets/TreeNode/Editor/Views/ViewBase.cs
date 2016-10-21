@@ -9,25 +9,22 @@ public class ViewBase {
 	public Rect viewRect;
 
 	protected GUISkin viewSkin;
-	protected GenericTreeUI currentGenericTree;
+	protected object currentGenericTree;
+	protected Type type;
 
 	public ViewBase () {
 		GetEditorSkin ();
 	}
 
-	public virtual void UpdateView (Rect _editorRect, Rect _percentageRect, Event _e, GenericTreeUI _currentGenericTree) {
+	public virtual void UpdateView <T> (Rect _editorRect, Rect _percentageRect, Event _e, GenericTree<T> _currentGenericTree) {
 		if (viewSkin == null) {
 			GetEditorSkin ();
 			return;
 		}
 
+		type = typeof(GenericTree <>).MakeGenericType(typeof(T));
+		currentGenericTree = Activator.CreateInstance(type);
 		this.currentGenericTree = _currentGenericTree;
-
-//		if (currentGenericTree != null ) {
-//			viewTitle = TreeUtils.UppercaseFirst(currentGenericTree.treeData.treeName);
-//		} else {
-//			viewTitle = "No";
-//		}
 
 		viewRect = new Rect (
 			_editorRect.x * _percentageRect.x,
@@ -37,7 +34,7 @@ public class ViewBase {
 		);
 	}
 
-	public virtual void ProcessEvent (Event e) {
+	public virtual void ProcessEvent <T> (Event e) {
 	}
 
 	protected void GetEditorSkin () {

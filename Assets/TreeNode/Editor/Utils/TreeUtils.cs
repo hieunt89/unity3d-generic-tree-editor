@@ -6,15 +6,15 @@ using System.IO;
 
 public static class TreeUtils {
 
-	public static void CreateTree (TreeType _treeType, string _treeName) {
-
+	public static void CreateTree <T> (string _treeName) {
+		
 	}
 
 	public static void SaveTree <T> (GenericTree<T> _currentTree) {
 		
 	}
 
-	public static  void LoadTree () {
+	public static  void LoadTree <T> () {
 		
 	}
 
